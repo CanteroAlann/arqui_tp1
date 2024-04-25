@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+    node:
+        image: node_app
+        build:
+            context: ./app
+            dockerfile: Dockerfile
+        command: npm start
+
     nginx:
         image: nginx:1.25.4
         ports:
