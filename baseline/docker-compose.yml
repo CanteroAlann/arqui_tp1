@@ -2,10 +2,7 @@ version: '3'
 
 services:
     node:
-        image: node_app
-        build:
-            context: ./app
-            dockerfile: Dockerfile
+        build: ./app
         command: npm start
     
     nginx:
@@ -39,7 +36,7 @@ services:
         image: gcr.io/cadvisor/cadvisor:v0.49.1
         links:
             - graphite
-        command: -storage_driver="statsd" -storage_driver_host="graphite:8125" -storage_driver_db="cadvisor" -storage_driver_buffer_duration="1s"
+        command: -storage_driver="statsd" -storage_driver_host="graphite:8125" -storage_driver_db="cadvisor" -storage_driver_buffer_duration="1s" --docker_only=true
         ports:
             - "8080:8080"
         volumes:

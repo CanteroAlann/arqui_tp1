@@ -1,0 +1,27 @@
+config:
+  environments:
+    api:
+      target: 'http://localhost:5555/'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-api"
+
+  pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
+
+  phases:
+    - name: Ramp
+      duration: 60
+      arrivalRate: 3
+      rampTo: 10
+    - name: Plain
+      duration: 120
+      arrivalRate: 8
+    
+
+scenarios:
+  - name: quote(/)
+    flow:
+      - get:
+          url: '/quote'
