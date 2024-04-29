@@ -20,7 +20,6 @@ app.get('/dictionary', async (req, res) => {
             meanings: response.data[0].meanings
         }
     ]
-    console.log(response.data[0].phonetics)
     res.status(200).send(data)
     }   
     catch(error){
