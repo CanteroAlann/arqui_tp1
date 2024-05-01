@@ -12,16 +12,16 @@ config:
 
   phases:
     - name: Ramp
-      duration: 180
+      duration: 60
       arrivalRate: 3
-      rampTo: 18
+      rampTo: 10
     - name: Plain
-      duration: 180
-      arrivalRate: 20
+      duration: 120
+      arrivalRate: 8
     
 
 scenarios:
-  - name: quote (/quote)
+  - name: quote(/)
     flow:
       - get:
           url: '/quote'
