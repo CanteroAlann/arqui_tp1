@@ -4,7 +4,12 @@ services:
     node:
         build: ./app
         command: npm start
-    
+
+    redis_db:
+        image: redis:7.2.4
+        ports:
+            - "6379:6379"
+
     nginx:
         image: nginx:1.25.4
         ports:
