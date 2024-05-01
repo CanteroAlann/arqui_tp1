@@ -27,7 +27,7 @@ config:
       rampTo: 300
     - name: Plain3
       duration: 60
-      arrivalRate: 300
+      arrivalRate: 200
     - name: PlainEnd
       duration: 1
       arrivalRate: 1
