@@ -52,7 +52,12 @@ app.get('/quote', async (req, res) => {
             method: 'get',
             url: 'https://api.quotable.io/random'
         })
-        const data = response.data.content
+        const data = [
+            {
+                content: response.data.content,
+                author: response.data.author
+            }
+        ]
         res.status(200).send(data)
     }
     catch(error){
