@@ -19,27 +19,27 @@ app.get('/ping', (req, res) => {
 app.get('/dictionary', async (req, res) => {
     const endpoint_start = Date.now();
     try{
-        const api_start = Date.now();
+    const api_start = Date.now();
     const response = await axios({
         method: 'get',
         url: `https://api.dictionaryapi.dev/api/v2/entries/en_US/${req.query.word}`
     })
     const api_time = Date.now() - api_start;
-    stats.timing('api.dictionaryapi.dev', api_time);
+    console.log(api_time)
+    stats.gauge('api.dictionaryapi.success_call', api_time);
     const data = [
         {
             phonetics: response.data[0].phonetics,
             meanings: response.data[0].meanings
         }
     ]
-    console.log(response.data[0].phonetics)
     res.status(200).send(data)
     }   
     catch(error){
         res.status(500).send('An error occurred')
     }
     const endpoint_time = Date.now() - endpoint_start;
-    stats.timing('dictionary', endpoint_time);
+    stats.gauge('dictionary', endpoint_time);
     });
 
 app.get('/spaceflight_news', async (req, res) => {
@@ -79,7 +79,6 @@ app.get('/quote', async (req, res) => {
         res.status(500).send('An error occurred')
     }
 });
-
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
     })
