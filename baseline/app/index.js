@@ -12,7 +12,10 @@ const stats = new StatsD(
 
 // endpoint ping
 app.get('/ping', (req, res) => {
+    const endpoint_start = Date.now();
     res.status(200).send('pong')
+    const endpoint_time = Date.now() - endpoint_start;
+    stats.gauge('endpoint_time', endpoint_time);
     });
 
 app.get('/dictionary', async (req, res) => {
