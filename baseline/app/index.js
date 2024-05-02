@@ -37,7 +37,13 @@ app.get('/dictionary', async (req, res) => {
     res.status(200).send(data)
     }   
     catch(error){
-        res.status(500).send('An error occurred')
+        if (error.response) {
+            res.status(error.response.status).send(error.response.data);
+        } else if (error.request) {          
+            res.status(503).send('Service Unavailable');
+        } else {
+            res.status(500).send('Internal Server Error');
+        }
     }
     const endpoint_time = Date.now() - endpoint_start;
     stats.gauge('endpoint_time', endpoint_time);
