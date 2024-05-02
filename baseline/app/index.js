@@ -1,6 +1,14 @@
 const express = require('express');
 const app = express();
 const axios = require('axios');
+const StatsD = require('hot-shots');
+
+const stats = new StatsD(
+    {
+        host: "graphite",
+        port: 8125,
+    }
+);
 
 
 // endpoint ping
@@ -9,11 +17,15 @@ app.get('/ping', (req, res) => {
     });
 
 app.get('/dictionary', async (req, res) => {
+    const endpoint_start = Date.now();
     try{
+        const api_start = Date.now();
     const response = await axios({
         method: 'get',
         url: `https://api.dictionaryapi.dev/api/v2/entries/en_US/${req.query.word}`
     })
+    const api_time = Date.now() - api_start;
+    stats.timing('api.dictionaryapi.dev', api_time);
     const data = [
         {
             phonetics: response.data[0].phonetics,
@@ -26,6 +38,8 @@ app.get('/dictionary', async (req, res) => {
     catch(error){
         res.status(500).send('An error occurred')
     }
+    const endpoint_time = Date.now() - endpoint_start;
+    stats.timing('dictionary', endpoint_time);
     });
 
 app.get('/spaceflight_news', async (req, res) => {
