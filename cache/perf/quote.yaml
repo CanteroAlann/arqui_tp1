@@ -17,7 +17,7 @@ config:
       rampTo: 10
     - name: Plain
       duration: 120
-      arrivalRate: 
+      arrivalRate: 8
     - name : Zero
       duration: 30
       arrivalRate: 0
