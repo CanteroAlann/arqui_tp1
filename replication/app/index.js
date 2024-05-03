@@ -12,7 +12,6 @@ const stats = new StatsD(
     }
 );
 
-
 // endpoint ping
 app.get('/ping', (req, res) => {
     const endpoint_start = Date.now();
