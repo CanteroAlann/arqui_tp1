@@ -4,6 +4,7 @@ const axios = require('axios');
 const redis = require('redis');
 
 const StatsD = require('hot-shots');
+const middleware = require('./middleware/middleware');
 
 const stats = new StatsD(
     {
@@ -33,19 +34,19 @@ app.get('/ping', (req, res) => {
     const endpoint_start = Date.now();
     res.status(200).send('pong')
     const endpoint_time = Date.now() - endpoint_start;
-    stats.gauge('endpoint_time', endpoint_time);
+    stats.timing('endpoint_time_stats', endpoint_time);
 });
 
-app.get('/dictionary', async (req, res) => {
+app.get('/dictionary', async (req, res, next) => {
     const endpoint_start = Date.now();
+    const api_start = Date.now();
     try {
-        const api_start = Date.now();
         const response = await axios({
             method: 'get',
             url: `https://api.dictionaryapi.dev/api/v2/entries/en_US/${req.query.word}`
         })
         const api_time = Date.now() - api_start;
-        stats.gauge('external_api_time', api_time);
+        stats.timing('external_api_time_stats', api_time);
         const data = [
             {
                 phonetics: response.data[0].phonetics,
@@ -56,21 +57,24 @@ app.get('/dictionary', async (req, res) => {
         res.status(200).send(data)
     }
     catch (error) {
-        res.status(500).send('An error occurred')
+        const api_time = Date.now() - api_start;
+        stats.timing('external_api_time_stats', api_time);
+        next(error)
     }
     const endpoint_time = Date.now() - endpoint_start;
-    stats.gauge('endpoint_time', endpoint_time);
+    stats.timing('endpoint_time', endpoint_time);
 });
 
-app.get('/spaceflight_news', async (req, res) => {
+app.get('/spaceflight_news', async (req, res, next) => {
     const endpoint_start = Date.now();
+    const api_start = Date.now();
     try {
-        const api_start = Date.now();
         const response = await axios({
             method: 'get',
             url: 'https://api.spaceflightnewsapi.net/v4/articles'
         })
         const api_time = Date.now() - api_start;
+        stats.timing('external_api_time_stats', api_time);
         const data = response.data.results.slice(0, 5).map((article) => {
             return (
                 article.title
@@ -79,16 +83,18 @@ app.get('/spaceflight_news', async (req, res) => {
         res.status(200).send(data)
     }
     catch (error) {
-        res.status(500).send('An error occurred')
+        const api_time = Date.now() - api_start;
+        stats.timing('external_api_time_stats', api_time);
+        next(error)
     }
     const endpoint_time = Date.now() - endpoint_start;
-    stats.gauge('endpoint_time', endpoint_time);
+    stats.timing('endpoint_time_stats', endpoint_time);
 });
 
-app.get('/quote', async (req, res) => {
+app.get('/quote', async (req, res, next) => {
     const endpoint_start = Date.now();
+    const api_start = Date.now();
     try {
-        const api_start = Date.now();
         let dataToSend = {}
         const fromCache = await client.get('quotes')
         const dataFromCache = JSON.parse(fromCache)
@@ -103,8 +109,8 @@ app.get('/quote', async (req, res) => {
                 }
             })
             res.status(200).send(dataToSend)
-            const api_time = Date.now() - api_start;
-            stats.gauge('external_api_time', api_time);
+            const endpoint_time = Date.now() - endpoint_start;
+            stats.timing('endpoint_time_stats', endpoint_time);
             return
         }
 
@@ -113,7 +119,7 @@ app.get('/quote', async (req, res) => {
             url: 'https://api.quotable.io/quotes/random?limit=50'
         })
         const api_time = Date.now() - api_start;
-        stats.gauge('external_api_time', api_time);
+        stats.timing('external_api_time_stats', api_time);
 
         const dataToStore = response.data.map((quote) => {
             return {
@@ -127,7 +133,6 @@ app.get('/quote', async (req, res) => {
             author: firstQuote.author
         }
         res.status(200).send(dataToSend)
-        console.log('data from api', dataToSend)
         client.set('quotes', JSON.stringify(dataToStore), (err, reply) => {
             if (err) {
                 console.error(err)
@@ -138,13 +143,14 @@ app.get('/quote', async (req, res) => {
         })
     }
     catch (error) {
-        console.error(error)
-        res.status(500).send('An error occurred')
+        const api_time = Date.now() - api_start;
+        stats.timing('external_api_time_stats', api_time);
+        next(error)
     }
     const endpoint_time = Date.now() - endpoint_start;
-    stats.gauge('endpoint_time', endpoint_time);
+    stats.timing('endpoint_time_stats', endpoint_time);
 });
-
+app.use(middleware.errorHandler)
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 })
