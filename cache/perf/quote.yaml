@@ -18,6 +18,9 @@ config:
     - name: Plain
       duration: 120
       arrivalRate: 8
+    - name : RampDown
+      duration: 30
+      arrivalRate: 0
     
 
 scenarios:
