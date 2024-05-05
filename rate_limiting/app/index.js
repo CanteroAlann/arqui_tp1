@@ -32,7 +32,9 @@ app.get('/ping', (req, res) => {
     stats.timing('endpoint_time_stats', endpoint_time);
 });
 
+
 app.get('/dictionary', async (req, res, next) => {
+
     const endpoint_start = Date.now();
     const api_start = Date.now();
     try {
@@ -53,6 +55,7 @@ app.get('/dictionary', async (req, res, next) => {
     catch (error) {
         const api_time = Date.now() - api_start;
         stats.timing('external_api_time_stats', api_time);
+
         next(error)
     }
     const endpoint_time = Date.now() - endpoint_start;
@@ -60,6 +63,7 @@ app.get('/dictionary', async (req, res, next) => {
 });
 
 app.get('/spaceflight_news', async (req, res, next) => {
+
     const endpoint_start = Date.now();
     const api_start = Date.now();
     try {
@@ -80,13 +84,17 @@ app.get('/spaceflight_news', async (req, res, next) => {
     catch (error) {
         const api_time = Date.now() - api_start;
         stats.timing('external_api_time_stats', api_time);
+
         next(error)
+
     }
     const endpoint_time = Date.now() - endpoint_start;
     stats.timing('endpoint_time_stats', endpoint_time);
 });
 
+
 app.get('/quote', async (req, res, next) => {
+
     const endpoint_start = Date.now();
     const api_start = Date.now();
     try {
@@ -96,6 +104,7 @@ app.get('/quote', async (req, res, next) => {
         })
         const api_time = Date.now() - api_start;
         stats.timing('external_api_time_stats', api_time);
+
         const data = [
             {
                 content: response.data.content,
@@ -107,7 +116,9 @@ app.get('/quote', async (req, res, next) => {
     catch (error) {
         const api_time = Date.now() - api_start;
         stats.timing('external_api_time_stats', api_time);
+
         next(error)
+
     }
     const endpoint_time = Date.now() - endpoint_start;
     stats.timing('endpoint_time_stats', endpoint_time);
