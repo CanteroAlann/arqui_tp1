@@ -13,31 +13,216 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1616712956688,
   "links": [],
+  "liveNow": false,
   "panels": [
+    {
+      "datasource": "Graphite",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 26,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": "Graphite",
+          "refCount": 0,
+          "refId": "A",
+          "target": "alias(stats.timers.external_api_time_stats.upper, 'upper')"
+        },
+        {
+          "datasource": "Graphite",
+          "hide": false,
+          "refCount": 0,
+          "refId": "B",
+          "target": "alias(stats.timers.external_api_time_stats.median, 'median')"
+        }
+      ],
+      "title": "External api",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Graphite",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 35,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean",
+            "count"
+          ],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": "Graphite",
+          "refCount": 0,
+          "refId": "A",
+          "target": "alias(stats.timers.endpoint_time_stats.upper, 'upper')"
+        },
+        {
+          "datasource": "Graphite",
+          "hide": false,
+          "refCount": 0,
+          "refId": "B",
+          "target": "alias(stats.timers.endpoint_time_stats.median, 'median')"
+        }
+      ],
+      "title": "endpoint",
+      "type": "timeseries"
+    },
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 7,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
+        "h": 9,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 16
       },
       "height": "250px",
       "hiddenSeries": false,
@@ -63,7 +248,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.10",
+      "pluginVersion": "10.1.9",
       "pointradius": 5,
       "points": true,
       "renderer": "flot",
@@ -73,6 +258,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Graphite",
           "refCount": 0,
           "refId": "B",
           "target": "aliasByMetric(stats.gauges.$server.scenarioCounts.*)",
@@ -80,9 +266,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Scenarios launched (stacked)",
       "tooltip": {
         "shared": true,
@@ -91,9 +275,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -102,22 +284,16 @@
           "format": "rps",
           "label": "",
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -125,27 +301,21 @@
         "Completed": "#7EB26D",
         "Errored": "#BF1B00",
         "Errors count": "#BF1B00",
+        "Limited": "#FDDA0D",
         "Pending": "#447EBC",
-        "Requests completed": "#7EB26D",
-        "Limited": "#FDDA0D"
+        "Requests completed": "#7EB26D"
       },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 7,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
+        "h": 9,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 25
       },
       "height": "250",
       "hiddenSeries": false,
@@ -171,7 +341,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.10",
+      "pluginVersion": "10.1.9",
       "pointradius": 5,
       "points": true,
       "renderer": "flot",
@@ -181,27 +351,29 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Graphite",
           "refId": "B",
           "target": "alias(sumSeries(stats.gauges.$server.errors.*), 'Errored')",
           "textEditor": true
         },
         {
+          "datasource": "Graphite",
           "refId": "A",
           "target": "alias(stats.gauges.$server.codes.200, 'Completed')"
         },
         {
+          "datasource": "Graphite",
           "refId": "C",
           "target": "alias(stats.gauges.$server.pendingRequests, 'Pending')"
         },
         {
+          "datasource": "Graphite",
           "refId": "D",
           "target": "alias(stats.gauges.$server.codes.429, 'Limited')"
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Requests state (stacked)",
       "tooltip": {
         "shared": true,
@@ -210,33 +382,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -245,19 +408,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 24,
         "x": 0,
-        "y": 14
+        "y": 34
       },
       "height": "250px",
       "hiddenSeries": false,
@@ -284,7 +441,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.10",
+      "pluginVersion": "10.1.9",
       "pointradius": 5,
       "points": true,
       "renderer": "flot",
@@ -294,20 +451,20 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Graphite",
           "refCount": 0,
           "refId": "C",
           "target": "alias(stats.gauges.$server.scenarioDuration.max, 'Upper')"
         },
         {
+          "datasource": "Graphite",
           "refCount": 0,
           "refId": "B",
           "target": "alias(stats.gauges.$server.scenarioDuration.median, 'Median')"
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Response time (client-side)",
       "tooltip": {
         "shared": true,
@@ -316,9 +473,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -327,22 +482,17 @@
           "format": "ms",
           "label": "",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -353,19 +503,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 42
       },
       "height": "250px",
       "hiddenSeries": false,
@@ -393,7 +537,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.10",
+      "pluginVersion": "10.1.9",
       "pointradius": 5,
       "points": true,
       "renderer": "flot",
@@ -408,6 +552,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Graphite",
           "hide": false,
           "refCount": 0,
           "refId": "C",
@@ -415,6 +560,7 @@
           "textEditor": false
         },
         {
+          "datasource": "Graphite",
           "hide": false,
           "refCount": 0,
           "refId": "B",
@@ -422,9 +568,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Resources",
       "tooltip": {
         "shared": true,
@@ -433,53 +577,42 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "percent",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "Bps",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     }
   ],
-  "refresh": "5s",
-  "schemaVersion": 26,
+  "refresh": false,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
           "selected": false,
           "text": "artillery-api",
           "value": "artillery-api"
         },
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "server",
         "options": [
@@ -494,47 +627,52 @@
         "type": "custom"
       },
       {
-        "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "1c24-tp-1_node_1",
           "value": "rate_limiting-node-1"
         },
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "container",
         "options": [
           {
             "selected": true,
-            "text": "tp-1_node_1",
+
+            "text": "1c24-tp-1_node_1",
+
             "value": "rate_limiting-node-1"
           },
           {
             "selected": false,
             "text": "1c24-tp-1_node_2",
-            "value": "1c24-tp-1_node_2"
+            "value": "rate_limiting-node-2"
           },
           {
             "selected": false,
             "text": "1c24-tp-1_node_3",
-            "value": "1c24-tp-1_node_3"
+            "value": "rate_limiting-node-3"
           },
           {
             "selected": false,
-            "text": "tp-1_cadvisor_1",
+
+            "text": "1c24-tp-1_cadvisor_1",
+
             "value": "rate_limiting-cadvisor-1"
           },
           {
             "selected": false,
-            "text": "tp-1_grafana_1",
+
+            "text": "1c24-tp-1_grafana_1",
+
             "value": "rate_limiting-grafana-1"
           },
           {
             "selected": false,
-            "text": "tp1-graphite-1",
+
+            "text": "1c24-tp-1_graphite_1",
+
             "value": "rate_limiting-graphite-1"
           },
           {
@@ -551,8 +689,8 @@
     ]
   },
   "time": {
-    "from": "now-3m",
-    "to": "now"
+    "from": "2024-05-03T01:53:01.199Z",
+    "to": "2024-05-03T01:58:08.782Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -580,7 +718,8 @@
     ]
   },
   "timezone": "",
-  "title": "Main dashboard",
-  "uid": "arxIPammk",
-  "version": 3
+  "title": "Replication",
+  "uid": "reply",
+  "version": 1,
+  "weekStart": ""
 }

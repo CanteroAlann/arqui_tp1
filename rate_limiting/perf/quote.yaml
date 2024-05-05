@@ -13,16 +13,15 @@ config:
   phases:
     - name: Ramp
       duration: 60
-      arrivalRate: 3
-      rampTo: 10
+      arrivalRate: 1
+      rampTo: 8
     - name: Plain
       duration: 120
       arrivalRate: 8
-    - name: Spike
+    - name : RampTwo
       duration: 60
-      arrivalRate: 10
-      rampTo: 20
-      holdFor: 30
+      arrivalRate: 20
+
     
 
 scenarios:
