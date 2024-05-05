@@ -498,7 +498,7 @@
         "current": {
           "selected": false,
           "text": "1c24-tp-1_node_1",
-          "value": "baseline-node-1"
+          "value": "rate_limiting-node-1"
         },
         "error": null,
         "hide": 0,
@@ -510,7 +510,7 @@
           {
             "selected": true,
             "text": "tp-1_node_1",
-            "value": "baseline-node-1"
+            "value": "rate_limiting-node-1"
           },
           {
             "selected": false,
@@ -525,22 +525,22 @@
           {
             "selected": false,
             "text": "tp-1_cadvisor_1",
-            "value": "baseline-cadvisor-1"
+            "value": "rate_limiting-cadvisor-1"
           },
           {
             "selected": false,
             "text": "tp-1_grafana_1",
-            "value": "baseline-grafana-1"
+            "value": "rate_limiting-grafana-1"
           },
           {
             "selected": false,
             "text": "tp1-graphite-1",
-            "value": "baseline-graphite-1"
+            "value": "rate_limiting-graphite-1"
           },
           {
             "selected": false,
             "text": "1c24-tp-1_nginx_1",
-            "value": "baseline-nginx-1"
+            "value": "rate_limiting-nginx-1"
           }
         ],
         "query": "1c24-tp-1_node_1, 1c24-tp-1_node_2, 1c24-tp-1_node_3, 1c24-tp-1_cadvisor_1, 1c24-tp-1_grafana_1, 1c24-tp-1_graphite_1,  1c24-tp-1_nginx_1, 1c24-tp-1_bbox_1",
