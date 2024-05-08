@@ -69,27 +69,50 @@ app.get('/spaceflight_news', async (req, res, next) => {
     const endpoint_start = Date.now();
     const api_start = Date.now();
     try {
-        const response = await axios({
-            method: 'get',
-            url: 'https://api.spaceflightnewsapi.net/v4/articles'
-        })
+        let dataToSend = {};
+        const fromCache = await client.get('spaceflight_news');
+        if (fromCache) {
+            console.log('Data from cache')
+            const dataFromCache = JSON.parse(fromCache);
+            dataToSend = dataFromCache;
+            const endpoint_time = Date.now() - endpoint_start;
+            stats.timing('endpoint_time_stats', endpoint_time);
+            return res.status(200).send(dataToSend);
+        } else {
+            const response = await axios({
+                method: 'get',
+                url: 'https://api.spaceflightnewsapi.net/v4/articles/',
+                params: {
+                    limit: 5,
+                    ordering: '-published_at'
+                }
+            });
+            console.log('Data from API');
+            const api_time = Date.now() - api_start;
+            stats.timing('external_api_time_stats', api_time);
+            const data = response.data.results.map((article) => {
+                return article.title;
+            });
+            dataToSend = data;
+            res.status(200).send(dataToSend);
+            client.set('spaceflight_news', JSON.stringify(dataToSend), {'EX': 600}, (err, reply) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.log('Los datos se guardaron en caché correctamente.', reply);
+                }
+            });
+            
+        }
+    } catch (error) {
         const api_time = Date.now() - api_start;
         stats.timing('external_api_time_stats', api_time);
-        const data = response.data.results.slice(0, 5).map((article) => {
-            return (
-                article.title
-            )
-        })
-        res.status(200).send(data)
-    }
-    catch (error) {
-        const api_time = Date.now() - api_start;
-        stats.timing('external_api_time_stats', api_time);
-        next(error)
+        next(error);
     }
     const endpoint_time = Date.now() - endpoint_start;
     stats.timing('endpoint_time_stats', endpoint_time);
 });
+
 
 app.get('/quote', async (req, res, next) => {
     const endpoint_start = Date.now();
