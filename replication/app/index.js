@@ -48,7 +48,7 @@ app.get('/dictionary', async (req, res, next) => {
     stats.timing('endpoint_time_stats', endpoint_time);
 });
 
-app.get('/spaceflight_news', async (req, res) => {
+app.get('/spaceflight_news', async (req, res, next) => {
     const endpoint_start = Date.now();
     const api_start = Date.now();
     try {
@@ -72,7 +72,7 @@ app.get('/spaceflight_news', async (req, res) => {
         next(error)
     }
     const endpoint_time = Date.now() - endpoint_start;
-    stats.timing('endpoint_time', endpoint_time);
+    stats.timing('endpoint_time_stats', endpoint_time);
 });
 
 app.get('/quote', async (req, res, next) => {
