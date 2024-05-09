@@ -13,16 +13,42 @@ config:
           prefix: "artillery-api"
   
 
-  pool: 5 # All HTTP requests from all virtual users will be sent over the same connections
+  pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
 
   phases:
-    - name: Ramp
+    - name: "Initialization phase"
+      duration: 30 
+      arrivalRate: 2 
+    - name: "Moderate Load"
       duration: 60
-      arrivalRate: 3
-      rampTo: 8
-    - name: Plain
+      arrivalRate: 5
+      rampTo: 10
+    - name: "Load Increase"
       duration: 60
-      arrivalRate: 15
+      arrivalRate: 10
+      rampTo: 20
+    - name: "Constant load"
+      duration: 60
+      arrivalRate: 20
+    - name: "Abrupt jump"
+      duration: 60
+      arrivalRate: 60
+    - name: "Load Increase"
+      duration: 60
+      arrivalRate: 60
+      rampTo: 90
+    - name: "Hold load"
+      duration: 30
+      arrivalRate: 90  
+    - name: "Abrupt jump"
+      duration: 30
+      arrivalRate: 200
+    - name: "Abrupt jump"
+      duration: 30
+      arrivalRate: 220
+    - name: "Abrupt jump"
+      duration: 30
+      arrivalRate: 300
     
 
 scenarios:
