@@ -639,7 +639,9 @@
         "options": [
           {
             "selected": true,
+
             "text": "1c24-tp-1_node_1",
+
             "value": "rate_limiting-node-1"
           },
           {
@@ -654,17 +656,23 @@
           },
           {
             "selected": false,
+
             "text": "1c24-tp-1_cadvisor_1",
+
             "value": "rate_limiting-cadvisor-1"
           },
           {
             "selected": false,
+
             "text": "1c24-tp-1_grafana_1",
+
             "value": "rate_limiting-grafana-1"
           },
           {
             "selected": false,
+
             "text": "1c24-tp-1_graphite_1",
+
             "value": "rate_limiting-graphite-1"
           },
           {

@@ -3,10 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": {
-          "type": "datasource",
-          "uid": "grafana"
-        },
+        "datasource": "-- Grafana --",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -23,10 +20,7 @@
   "liveNow": false,
   "panels": [
     {
-      "datasource": {
-        "type": "graphite",
-        "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-      },
+      "datasource": "Graphite",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -76,7 +70,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "ms"
         },
         "overrides": []
       },
@@ -104,19 +99,13 @@
       },
       "targets": [
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "refCount": 0,
           "refId": "A",
           "target": "alias(stats.timers.external_api_time_stats.upper, 'upper')"
         },
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "hide": false,
           "refCount": 0,
           "refId": "B",
@@ -127,10 +116,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "graphite",
-        "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-      },
+      "datasource": "Graphite",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -180,7 +166,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "ms"
         },
         "overrides": []
       },
@@ -209,19 +196,13 @@
       },
       "targets": [
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "refCount": 0,
           "refId": "A",
           "target": "alias(stats.timers.endpoint_time_stats.upper, 'upper')"
         },
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "hide": false,
           "refCount": 0,
           "refId": "B",
@@ -236,10 +217,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "type": "graphite",
-        "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-      },
+      "datasource": "Graphite",
       "fill": 7,
       "fillGradient": 0,
       "gridPos": {
@@ -282,10 +260,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "refCount": 0,
           "refId": "B",
           "target": "aliasByMetric(stats.gauges.$server.scenarioCounts.*)",
@@ -335,10 +310,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "type": "graphite",
-        "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-      },
+      "datasource": "Graphite",
       "fill": 7,
       "fillGradient": 0,
       "gridPos": {
@@ -381,35 +353,23 @@
       "steppedLine": false,
       "targets": [
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "refId": "B",
           "target": "alias(sumSeries(stats.gauges.$server.errors.*), 'Errored')",
           "textEditor": true
         },
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "refId": "A",
           "target": "alias(stats.gauges.$server.codes.200, 'Completed')"
         },
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "refId": "C",
           "target": "alias(stats.gauges.$server.pendingRequests, 'Pending')"
         },
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "refId": "D",
           "target": "alias(stats.gauges.$server.codes.429, 'Limited')"
         }
@@ -449,10 +409,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "type": "graphite",
-        "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-      },
+      "datasource": "Graphite",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -496,19 +453,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "refCount": 0,
           "refId": "C",
           "target": "alias(stats.gauges.$server.scenarioDuration.max, 'Upper')"
         },
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "refCount": 0,
           "refId": "B",
           "target": "alias(stats.gauges.$server.scenarioDuration.median, 'Median')"
@@ -553,10 +504,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "type": "graphite",
-        "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-      },
+      "datasource": "Graphite",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -606,10 +554,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "hide": false,
           "refCount": 0,
           "refId": "C",
@@ -617,10 +562,7 @@
           "textEditor": false
         },
         {
-          "datasource": {
-            "type": "graphite",
-            "uid": "f170b498-0e7e-4e8e-b434-7f95bbccd9f8"
-          },
+          "datasource": "Graphite",
           "hide": false,
           "refCount": 0,
           "refId": "B",
