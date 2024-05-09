@@ -104,7 +104,7 @@ app.get('/quote', async (req, res, next) => {
         })
         const api_time = Date.now() - api_start;
         stats.timing('external_api_time_stats', api_time);
-        
+
         const data = [
             {
                 content: response.data.content,
