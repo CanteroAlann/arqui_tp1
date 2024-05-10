@@ -43,7 +43,7 @@ app.get('/dictionary', async (req, res, next) => {
             url: `https://api.dictionaryapi.dev/api/v2/entries/en_US/${req.query.word}`
         })
         const api_time = Date.now() - api_start;
-        stats.timing('external_api_time', api_time);
+        stats.timing('external_api_time_stats', api_time);
         const data = [
             {
                 phonetics: response.data[0].phonetics,

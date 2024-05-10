@@ -40,30 +40,55 @@ app.get('/ping', (req, res) => {
 app.get('/dictionary', async (req, res, next) => {
     const endpoint_start = Date.now();
     const api_start = Date.now();
-    try {
-        const response = await axios({
-            method: 'get',
-            url: `https://api.dictionaryapi.dev/api/v2/entries/en_US/${req.query.word}`
-        })
-        const api_time = Date.now() - api_start;
-        stats.timing('external_api_time_stats', api_time);
-        const data = [
-            {
-                phonetics: response.data[0].phonetics,
-                meanings: response.data[0].meanings
-            }
-        ]
-        console.log(response.data[0].phonetics)
-        res.status(200).send(data)
+    const word = req.query.word;
+ 
+    if (!word) {
+       return res.status(400).send('A word is required');
     }
-    catch (error) {
+ 
+    try {
+        const cachedWordData = await client.get(`dictionary:${word}`);
+ 
+        if (cachedWordData) {
+            console.log('Returning data from cache');
+            const data = JSON.parse(cachedWordData);
+            res.status(200).send(data);
+            const endpoint_time = Date.now() - endpoint_start;
+            console.log('endpoint_time', endpoint_time);
+            stats.timing('endpoint_time_stats', endpoint_time);
+            return;
+        } else {
+            const response = await axios({
+                method: 'get',
+                url: `https://api.dictionaryapi.dev/api/v2/entries/en_US/${word}`
+            });
+            const api_time = Date.now() - api_start;
+            console.log('api_time', api_time);
+            stats.timing('external_api_time_stats', api_time);
+            const data = [
+                {
+                    phonetics: response.data[0].phonetics,
+                    meanings: response.data[0].meanings
+                }
+            ];
+ 
+            await client.set(`dictionary:${word}`, JSON.stringify(data));
+            await client.expire(`dictionary:${word}`, 1200); //Expira despues de 20 minutos
+ 
+            console.log('Data fetched from API and saved in cache');
+            res.status(200).send(data);
+        }
+    } catch (error) {
         const api_time = Date.now() - api_start;
+        console.log('api_time', api_time);
         stats.timing('external_api_time_stats', api_time);
-        next(error)
+        next(error);
     }
     const endpoint_time = Date.now() - endpoint_start;
-    stats.timing('endpoint_time', endpoint_time);
+    console.log('endpoint_time', endpoint_time);
+    stats.timing('endpoint_time_stats', endpoint_time);
 });
+
 
 app.get('/spaceflight_news', async (req, res, next) => {
     const endpoint_start = Date.now();
@@ -75,9 +100,10 @@ app.get('/spaceflight_news', async (req, res, next) => {
             console.log('Data from cache')
             const dataFromCache = JSON.parse(fromCache);
             dataToSend = dataFromCache;
+            res.status(200).send(dataToSend);
             const endpoint_time = Date.now() - endpoint_start;
             stats.timing('endpoint_time_stats', endpoint_time);
-            return res.status(200).send(dataToSend);
+            return
         } else {
             const response = await axios({
                 method: 'get',
